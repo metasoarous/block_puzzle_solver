@@ -1,0 +1,23 @@
+Puzzle Solver Program
+
+This program is designed to solve the block puzzle illustrated in the
+image file at the root of the directory. There are 64 pieces, and they
+are connected with a string that runs between them. Where the blocks
+change directions, it is possible to twist the blocks that follow by
+rotating. In this way, it is possible to reconfigure the blocks into a
+4x4 square. This program counts all of the possible solutions, though
+possibly with some repitition when isomorphism is considered. It is the
+eventual aim of this program to account for isomorphisms as well.
+
+
+Algorithm outline:
+
+The block puzzle is represented as an array of the number of blocks till a
+turn. We represent configurations of the blocks as a 3x3 "matrix" of 1s where
+there are blocks. The matrix is implemented as a disctinary mapping tuples
+of integer coordinates to 1 for spots which have a block. The basic idea is
+to iterate over the possible rotations at the bends, and throw out any
+rotation that would force an overlap of...
+
+Actually, maybe we need to implement this as a set of tuples instead. That
+seems more efficient. Yeah... Let's do that.
