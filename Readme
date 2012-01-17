@@ -1,16 +1,17 @@
-Puzzle Solver Program
+= Puzzle Solver Program
 
 This program is designed to solve the block puzzle illustrated in the
 image file at the root of the directory. There are 64 pieces, and they
 are connected with a string that runs between them. Where the blocks
 change directions, it is possible to twist the blocks that follow by
 rotating. In this way, it is possible to reconfigure the blocks into a
-4x4 square. This program counts all of the possible solutions, though
+4x4x4 cube. This program counts all of the possible solutions, though
 possibly with some repitition when isomorphism is considered. It is the
-eventual aim of this program to account for isomorphisms as well.
+eventual aim of this program to account for isomorphisms as well, and will
+certainly need to in order to maximize effeciency.
 
 
-Algorithm outline:
+== Algorithm outline:
 
 The block puzzle is represented as an array of the number of blocks till a
 turn. We represent configurations of the blocks as a 3x3 "matrix" of 1s where
@@ -21,3 +22,24 @@ rotation that would force an overlap of...
 
 Actually, maybe we need to implement this as a set of tuples instead. That
 seems more efficient. Yeah... Let's do that.
+
+
+== Todo
+
+* Write in isomorphism testing. It seems to be the case that once you pass
+  through a node with no isomorphic valid moves, none of the moves therein
+  will be isomorphic anywhere within. If further reflection reveals that this
+  is the case, we should be able to pass along a flag which specifies whether
+  to check for isomporphisms or not, to save time over the majority of the
+  tree structure.
+* It would be useful to kep track of the db id of each parent for each given
+  node. This would make it really easy to navigate through the tree.
+* Would be great to multithread this with an input for number of threads.
+  * Should probably just put this in a separate branch
+  * Is there a good way of measuring time while spreading computations out
+    over multiple threads?
+* R analysis code
+  * There are a lot of questions that can be asked here, and more will probably
+    arise as analysis ensues
+  * Look at distribution of computational time on the tree
+

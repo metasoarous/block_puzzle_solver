@@ -2,8 +2,13 @@
 # Some helper list methods. Should probably move these into some kind of list
 # helper file at some point...
 
+import sqlalchemy
+from sqlalchemy import Column, Integer, String, Text, Float
+from sqlalchemy.ext.declarative import declarative_base
 import collections
 import pdb
+
+DBBase = declarative_base()
 
 def duplicates(xs):
     """ Wraps the collections module functionality a bit to tell us which
@@ -12,9 +17,18 @@ def duplicates(xs):
     return [i for i in y if y[i] > 1]
 
 
-class PuzzlePosition(object):
+class PuzzlePosition(DBBase):
     """The PuzzlePosition class represents a specific position of the
     block puzzle"""
+
+    __tablename__ = 'positions'
+
+    id = Column(Integer, primary_key=True)
+    coordinates = Column(Text)
+    depth = Column(Integer)
+    solutions = Column(Integer)
+    time = Column(Float)
+
 
     def __init__(self, occupied_coordinates):
         self.occupied_coordinates = occupied_coordinates
