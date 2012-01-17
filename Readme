@@ -32,8 +32,6 @@ seems more efficient. Yeah... Let's do that.
   is the case, we should be able to pass along a flag which specifies whether
   to check for isomporphisms or not, to save time over the majority of the
   tree structure.
-* It would be useful to kep track of the db id of each parent for each given
-  node. This would make it really easy to navigate through the tree.
 * Would be great to multithread this with an input for number of threads.
   * Should probably just put this in a separate branch
   * Is there a good way of measuring time while spreading computations out
@@ -44,4 +42,5 @@ seems more efficient. Yeah... Let's do that.
   * Look at distribution of computational time on the tree
 * It's probably worth throwing in some code using SQLAlchemy that will make it
   easier to do analysis in python; could prove useful.
-
+* Might be nice to have a start_time value that makes it easier to see how long
+  the computation has been running on a given node (given it's still running)

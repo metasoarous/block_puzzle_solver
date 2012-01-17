@@ -1,7 +1,4 @@
 
-# Some helper list methods. Should probably move these into some kind of list
-# helper file at some point...
-
 import sqlalchemy
 from sqlalchemy import Column, Integer, String, Text, Float
 #from sqlalchemy.orm import relationship, backref
@@ -10,6 +7,7 @@ import collections
 import pdb
 
 DBBase = declarative_base()
+
 
 def duplicates(xs):
     """ Wraps the collections module functionality a bit to tell us which
@@ -25,7 +23,7 @@ class PuzzlePosition(DBBase):
     __tablename__ = 'positions'
 
     id = Column(Integer, primary_key=True)
-    parent_id = Column(Integer, ForeignKey("puzzles.id"))
+    parent_id = Column(Integer)
     # For right now I'm just going to leave the actual relationships out of the
     # picture here since most of the processing/analysis will be in R
     coordinates = Column(Text)
