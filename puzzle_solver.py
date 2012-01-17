@@ -33,7 +33,7 @@ class PuzzleSolver:
         # isomorphic initial move sets that we could work from. Still possibly
         # a little bit of wiggle room for uncaught isomorphisms, but much less.
         initial_position = PuzzlePosition(coordinates)
-        self.check_position(initial_position, 0)
+        self.check_position(initial_position, 0, None)
 
     def print_and_write(text, newline=False):
         if newline:
@@ -43,7 +43,7 @@ class PuzzleSolver:
             print(text,)
         self.summary_file.write(text)
 
-    def check_position(self, position, legn):
+    def check_position(self, position, legn, parent_id):
         """ This is at the heart of the solve method. It recurses through the
         valid moves and sets the position as a solution and """
         in_depth = legn < self.info_depth
@@ -53,14 +53,18 @@ class PuzzleSolver:
             s = "  "
             print("Sols: {}, Depth: {}{}".format(len(self.solutions), s*legn, legn))
             position.depth = legn
+            position.parent_id = parent_id
             position.coordinates = str(position.occupied_coordinates)
             self.db_session.add(position)
             self.db_session.commit()
         for move in position.valid_moves(self.segments[legn]):
             if legn == len(self.segments) - 1:
                 self.solutions.append(move)
+                self.print_and_write("Solution Found!!!!!")
+                self.print_and_write(str(position.occupied_coordinates))
+                self.print_and_write("\n"*2)
             else:
-                self.check_position(move, legn + 1)
+                self.check_position(move, legn + 1, position.id)
         if in_depth:
             t = time.time() - t0
             solutions = len(self.solutions) - solutions_before
@@ -112,9 +116,4 @@ if __name__ == "__main__":
     solver.solve()
     solver.print_and_write("Problem solved in {} seconds".format(time.time() - t0))
     solver.print_and_write("Number of solutions is {}".format(len(solver.solutions)))
-    solver.print_and_write("Solutions:{}".format("\n"*2))
-    for solution in solver.solutions:
-        solver.print_and_write(solution.occupied_coordinates)
-        solver.print_and_write("\n"*2)
-
 

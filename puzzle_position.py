@@ -4,6 +4,7 @@
 
 import sqlalchemy
 from sqlalchemy import Column, Integer, String, Text, Float
+#from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
 import collections
 import pdb
@@ -24,6 +25,9 @@ class PuzzlePosition(DBBase):
     __tablename__ = 'positions'
 
     id = Column(Integer, primary_key=True)
+    parent_id = Column(Integer, ForeignKey("puzzles.id"))
+    # For right now I'm just going to leave the actual relationships out of the
+    # picture here since most of the processing/analysis will be in R
     coordinates = Column(Text)
     depth = Column(Integer)
     solutions = Column(Integer)

@@ -42,4 +42,6 @@ seems more efficient. Yeah... Let's do that.
   * There are a lot of questions that can be asked here, and more will probably
     arise as analysis ensues
   * Look at distribution of computational time on the tree
+* It's probably worth throwing in some code using SQLAlchemy that will make it
+  easier to do analysis in python; could prove useful.
 
